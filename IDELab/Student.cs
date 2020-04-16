@@ -9,12 +9,9 @@ namespace IDELab
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public List<int> HomeworkResults { get; } = new List<int>();
-        public int[] HomeworkResultsInArray { get; set; }
         public int ExamResult { get; set; }
         public double AverageHomeworkResult => (double) HomeworkResults.Sum(x => x) / HomeworkResults.Count;
         public double MedianHomeworkResult => GetMedian();
-        public double MedianHomeworkResultArray => GetMedianFromArray();
-        public double AverageHomeworkResultArray => (double) HomeworkResultsInArray.Sum(x => x) / HomeworkResultsInArray.Length;
 
         private double GetMedian()
         {
@@ -25,18 +22,6 @@ namespace IDELab
             sortedNumbers.Sort();
 
             return GetMedianNumber(sortedNumbers);
-        }
-
-        private double GetMedianFromArray()
-        {
-            if (!HomeworkResultsInArray.Any())
-                return 0;
-
-            var clonedArray = new int[HomeworkResultsInArray.Length];
-            Array.Copy(HomeworkResultsInArray, clonedArray, HomeworkResultsInArray.Length);
-            Array.Sort(HomeworkResultsInArray);
-
-            return GetMedianNumber(HomeworkResultsInArray);
         }
 
         private static double GetMedianNumber(IReadOnlyList<int> sortedNumbers)
