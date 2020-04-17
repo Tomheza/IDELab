@@ -57,7 +57,7 @@ namespace IDELab.Input
             Console.WriteLine("\n\n\n\n");
             Console.WriteLine($"{"Last Name",-10}\t{"First Name",-10}\t{"Final (Avg.)",10}");
             Console.WriteLine("-------------------------------------------------------");
-            students.ForEach(x => x.OutputStudentResults(useMedian));
+            students.ForEach(x => x.OutputStudentResultsWithOneResult(useMedian));
         }
 
         public static void GenerateRandomStudentResults(Student student)
@@ -86,7 +86,7 @@ namespace IDELab.Input
                 Console.WriteLine("Enter student's homework results. If you wish to stop entering homework results enter: /");
                 var homeworkInput = Console.ReadLine();
 
-                if (int.TryParse(homeworkInput, out var homeworkResult) && homeworkResult < 11 && homeworkResult > 0)
+                if (int.TryParse(homeworkInput, out var homeworkResult) && homeworkResult.ValidResult())
                     student.HomeworkResults.Add(homeworkResult);
 
                 else if (homeworkInput == "/")
@@ -103,7 +103,7 @@ namespace IDELab.Input
             {
                 var examInput = Console.ReadLine();
 
-                if (int.TryParse(examInput, out var examResult) && examResult < 11 && examResult > 0)
+                if (int.TryParse(examInput, out var examResult) && examResult.ValidResult())
                 {
                     student.ExamResult = examResult;
                     break;

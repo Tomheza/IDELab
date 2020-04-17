@@ -35,9 +35,14 @@ namespace IDELab
             return median;
         }
 
-        public void OutputStudentResults(bool useMedian)
+        public void OutputStudentResultsWithOneResult(bool useMedian)
         {
             Console.WriteLine($"{LastName,-10}\t{FirstName,-10}\t{GetFinalResult(useMedian),10:N}");
+        }
+
+        public void OutputStudentResults()
+        {
+            Console.WriteLine($"{LastName,-10}\t{FirstName,-10}\t{GetFinalResult(false),10:N}\t{GetFinalResult(true),10:N}");
         }
 
         public double GetFinalResult(bool useMedian)
