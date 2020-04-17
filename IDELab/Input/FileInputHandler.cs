@@ -57,7 +57,7 @@ namespace IDELab.Input
             Console.WriteLine("\n\n\n\n");
             Console.WriteLine($"{"Last Name",-10}\t{"First Name",-10}\t{"Final (Avg.)",10}\t{"Final (Med.)",10}");
             Console.WriteLine("-------------------------------------------------------------------------------------------");
-            students.ForEach(x => x.OutputStudentResults());
+            students.OrderBy(x => x.LastName).ToList().ForEach(x => x.OutputStudentResults());
         }
     }
 }
