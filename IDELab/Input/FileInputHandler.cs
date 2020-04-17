@@ -9,17 +9,14 @@ namespace IDELab.Input
     {
         public void InputData()
         {
-            var path = "Data\\Studentai.txt";
-            var combinedString = Path.Combine(Directory.GetCurrentDirectory(), path);
-
-            if (!File.Exists(combinedString))
+            if (!File.Exists(Settings.ReadFile))
                 return;
 
-            using var streamReader = new StreamReader(combinedString);
+            using var streamReader = new StreamReader(Settings.ReadFile);
             string studentInput;
             var dataStructureLine = true;
 
-            var students = new List<Student>();
+            var students = new List<Students.Student>();
 
             while ((studentInput = streamReader.ReadLine()) != null)
             {
@@ -34,7 +31,7 @@ namespace IDELab.Input
                     continue;
                 }
 
-                var student = new Student()
+                var student = new Students.Student()
                 {
                     FirstName = studentData[0],
                     LastName = studentData[1]
@@ -56,7 +53,7 @@ namespace IDELab.Input
             Console.WriteLine("\n\n\n\n");
             Console.WriteLine($"{"Last Name",-10}\t{"First Name",-10}\t{"Final (Avg.)",10}\t{"Final (Med.)",10}");
             Console.WriteLine("-------------------------------------------------------------------------------------------");
-            students.OrderBy(x => x.LastName).ToList().ForEach(x => x.OutputStudentResults());
+            students.OrderBy(x => x.LastName).ToList().ForEach(x => Console.WriteLine(x.GetStudentResultsOutput()));
         }
     }
 }

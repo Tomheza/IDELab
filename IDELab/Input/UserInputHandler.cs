@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using IDELab.Helpers;
 
 namespace IDELab.Input
 {
@@ -8,7 +9,7 @@ namespace IDELab.Input
     {
         public void InputData()
         {
-            var students = new List<Student>();
+            var students = new List<Students.Student>();
 
             while (true)
             {
@@ -21,16 +22,23 @@ namespace IDELab.Input
 
                 if (!(string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName)))
                 {
-                    var student = new Student() {FirstName = firstName, LastName = lastName};
+                    var student = new Students.Student() {FirstName = firstName, LastName = lastName};
 
                     Console.WriteLine("If you wish to get a random set of results enter 0, otherwise any key.");
                     var homeworkResultTypeInput = Console.ReadLine();
 
                     if (int.TryParse(homeworkResultTypeInput, out var homeWorkResultType) && homeWorkResultType == 0)
-                        GenerateRandomStudentResults(student);
+                    {
+                        var (homeworkResults, examResult) = GenerateRandomStudentResults.GetRandomStudentResults();
+
+                        student.HomeworkResults.AddRange(homeworkResults);
+                        student.ExamResult = examResult;
+                    }
 
                     else
+                    {
                         SetUserResultsManually(student);
+                    }
 
                     students.Add(student);
                 }
@@ -58,27 +66,11 @@ namespace IDELab.Input
             Console.WriteLine("\n\n\n\n");
             Console.WriteLine($"{"Last Name",-10}\t{"First Name",-10}\t{"Final (Avg.)",10}");
             Console.WriteLine("-------------------------------------------------------");
-            students.OrderBy(x => x.LastName).ToList().ForEach(x => x.OutputStudentResultsWithOneResult(useMedian));
+            students.OrderBy(x => x.LastName).ToList().ForEach(x => Console.WriteLine(x.GetStudentResultsWithOneResultOutput(useMedian)));
         }
 
-        public static void GenerateRandomStudentResults(Student student)
-        {
-            var rnd = new Random();
-            var resultCount = rnd.Next(1, 11);
 
-            for (var i = 0; i < resultCount; i++)
-            {
-                var randomGeneratedNumber = rnd.Next(1, 11);
-                Console.WriteLine($"Random generated homework result: {randomGeneratedNumber}");
-                student.HomeworkResults.Add(randomGeneratedNumber);
-            }
-
-            var randomExamResult = rnd.Next(1, 11);
-            Console.WriteLine($"Random exam result: {randomExamResult}");
-            student.ExamResult = randomExamResult;
-        }
-
-        private static void SetUserResultsManually(Student student)
+        private static void SetUserResultsManually(Students.Student student)
         {
             while (true)
             {

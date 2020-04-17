@@ -14,12 +14,14 @@ namespace IDELab
 
             IDataInput inputHandler;
 
-            if (int.TryParse(dataInputType, out int inputType) && inputType == 0)
+            if (int.TryParse(dataInputType, out var inputType) && inputType == 0)
                 inputHandler = InputServiceFactory.CreateInstance(DataInputType.User);
             else
                 inputHandler = InputServiceFactory.CreateInstance(DataInputType.File);
 
             inputHandler.InputData();
+
+            RandomStudentListGenerator.Generate();
         }
     }
 }
