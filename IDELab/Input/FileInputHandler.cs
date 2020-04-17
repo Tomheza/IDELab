@@ -12,7 +12,6 @@ namespace IDELab.Input
             var path = "Data\\Studentai.txt";
             var combinedString = Path.Combine(Directory.GetCurrentDirectory(), path);
 
-
             if (!File.Exists(combinedString))
                 return;
 

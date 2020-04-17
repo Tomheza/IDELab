@@ -28,11 +28,19 @@ namespace IDELab
         {
             var midNumber = sortedNumbers.Count / 2;
 
-            var median = (sortedNumbers.Count % 2 != 0)
-                ? sortedNumbers[midNumber]
-                : ((double)sortedNumbers[midNumber] + sortedNumbers[midNumber - 1]) / 2;
+            try
+            {
+                var median = (sortedNumbers.Count % 2 != 0)
+                    ? sortedNumbers[midNumber]
+                    : ((double)sortedNumbers[midNumber] + sortedNumbers[midNumber - 1]) / 2;
 
-            return median;
+                return median;
+            }
+            catch (IndexOutOfRangeException exception)
+            {
+                Console.WriteLine(exception);
+                return 0;
+            }
         }
 
         public void OutputStudentResultsWithOneResult(bool useMedian)
