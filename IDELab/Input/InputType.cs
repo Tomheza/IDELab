@@ -2,7 +2,9 @@
 {
     public enum DataInputType
     {
-        File,
+        FirstFileInputStrategy,
+        SecondFileInputStrategy,
+        ThirdFileInputStrategy,
         User
     }
 }
